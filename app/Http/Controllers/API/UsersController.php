@@ -13,7 +13,8 @@ class UsersController extends Controller
         $users = User::query();
 
         if ($request->has('include') && $request->filled('include')) {
-            $users->with(array_keys($request->get('include')));
+            $filters = array_keys($request->get('include')); // equals to [bio, posts]
+            $users->with($filters);
         }
 
         return $users->get();
